@@ -1,15 +1,18 @@
 import { ethers, upgrades } from "hardhat";
-// import '@openzeppelin/hardhat-upgrades';
+import { UpgradeOptions } from '@openzeppelin/hardhat-upgrades';
 
 async function main() {
   const agen = await ethers.deployContract("AGEN", [], {});
   const agenContract = await ethers.getContractFactory("AGEN")
-  // const agenProxy = await ethers.deployContract(')
-  const tokenProxy = await upgrades.deployProxy(agen)
-
-  console.log({tokenProxy, agenContract})
+  const agenProxy = await upgrades.deployProxy(agenContract, [], {})
+  await agenProxy.waitForDeployment();
+  // const proxyContract = await ethers.getContractFactory("Proxy")
+  console.log({agen: {addy: agen.target, user: agen.runner}})
   
-  await agen.waitForDeployment();
+  const agenContractAddress = agen.target, 
+  ownerAddress = agen.owner;
+
+  console.log({agenContractAddress, ownerAddress, agenProxy})
 
   console.log(
     `AGEN Token 🚀 deployed to ${agen.target}`
