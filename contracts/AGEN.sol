@@ -32,6 +32,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
         __ERC20Permit_init("AGEN");
         __ERC20Votes_init();
         __UUPSUpgradeable_init();
+        _mint(msg.sender, 1000 * 10 ** decimals());
     }
 
     function cap() public view override(ERC20CappedUpgradeable) returns (uint256) {
