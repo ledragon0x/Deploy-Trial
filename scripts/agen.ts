@@ -1,17 +1,12 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  
-  const lockedAmount = ethers.parseEther("0.001");
-
   const agen = await ethers.deployContract("AGEN", [], {});
 
   await agen.waitForDeployment();
 
   console.log(
-    `AGEN Token locked with ${ethers.formatEther(
-      lockedAmount
-    )} and deployed to ${agen.target}`
+    `AGEN Token 🚀 deployed to ${agen.target}`
   );
 }
 
